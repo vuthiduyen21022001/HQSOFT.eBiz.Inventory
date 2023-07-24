@@ -21,7 +21,7 @@ public class InventoryMenuContributor : IMenuContributor
 
         AddMenuItemLotSerClasses(context, moduleMenu);
 
-        AddMenuItemLotSerSegments(context, moduleMenu);
+        
     }
 
     private static async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
@@ -70,16 +70,5 @@ public class InventoryMenuContributor : IMenuContributor
         );
     }
 
-    private static void AddMenuItemLotSerSegments(MenuConfigurationContext context, ApplicationMenuItem parentMenu)
-    {
-        parentMenu.AddItem(
-            new ApplicationMenuItem(
-                Menus.InventoryMenus.LotSerSegments,
-                context.GetLocalizer<InventoryResource>()["Menu:LotSerSegments"],
-                "/Inventory/LotSerSegments",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: InventoryPermissions.LotSerSegments.Default
-            )
-        );
-    }
+   
 }

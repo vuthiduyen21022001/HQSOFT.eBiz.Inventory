@@ -8,6 +8,6 @@ public class InventoryMenus
 
     public const string LotSerClasses = Prefix + ".LotSerClasses";
 
-    public const string LotSerSegments = Prefix + ".LotSerSegments";
+   // public const string LotSerSegments = Prefix + ".LotSerSegments";
 
 }

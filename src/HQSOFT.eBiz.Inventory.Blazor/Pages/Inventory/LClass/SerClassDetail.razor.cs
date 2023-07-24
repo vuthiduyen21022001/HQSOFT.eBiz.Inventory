@@ -206,41 +206,47 @@ namespace HQSOFT.eBiz.Inventory.Blazor.Pages.Inventory.LClass
             IsDataEntryChanged = false;
             NavigationManager.NavigateTo($"/Inventory/LotSerClasses/Detail/{Guid.Empty}");
         }
-        private async Task SaveClassessAsync(bool IsNewNext)
-        {
-            try
-            {
-                await Task.CompletedTask;
-                //if (await ClassValidations.ValidateAll() == false)
-                //{
-                //    return;
-                //}
+       
 
-                if (EditingLotSerClassId == Guid.Empty)
+            private async Task SaveClassessAsync(bool IsNewNext)
+            {
+                try
                 {
-                    var clas = await LotSerClassesAppService.CreateAsync(EditingLotSerClass);
-                    EditingLotSerClassId = clas.Id;
-                }
-                else
-                {
+                    await Task.CompletedTask;
+                    //if (await OrderValidations.ValidateAll() == false)
+                    //{
+                    //    return;
+                    //}
+
+                    if (EditingLotSerClassId == Guid.Empty)
+                    {
+                        var clas = await LotSerClassesAppService.CreateAsync(EditingLotSerClass);
+                        EditingLotSerClassId = clas.Id;
+                    }
+                    else
+                    {
                     await LotSerClassesAppService.UpdateAsync(EditingLotSerClassId, EditingLotSerClass);
                     var clas = await LotSerClassesAppService.GetAsync(EditingLotSerClassId);
-                    EditingLotSerClass = ObjectMapper.Map<LotSerClassDto, LotSerClassUpdateDto>(clas);
+                        EditingLotSerClass = ObjectMapper.Map<LotSerClassDto, LotSerClassUpdateDto>(clas);
+                    }
+
+                    await SaveSegmentAsync();
+
+                    if (IsNewNext)
+                        await NewClass();
+                    else
+                    {
+                        IsDataEntryChanged = false;
+                    NavigationManager.NavigateTo($"/Inventory/LotSerClasses/Detail/{EditingLotSerClassId}");
+                }
+            }
+                catch (Exception ex)
+                {
+                    await HandleErrorAsync(ex);
                 }
 
-                await SaveSegmentAsync();
-
-                if (IsNewNext)
-                    await NewClass();
-                else
-                    NavigationManager.NavigateTo($"/Inventory/LotSerClasses/Detail/{EditingLotSerClassId}");
             }
-            catch (Exception ex)
-            {
-                await HandleErrorAsync(ex);
-            }
-
-        }
+        
         private async Task SaveSegmentAsync()
         {
             try

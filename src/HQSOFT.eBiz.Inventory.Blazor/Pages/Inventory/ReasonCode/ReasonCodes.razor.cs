@@ -22,17 +22,22 @@ namespace HQSOFT.eBiz.Inventory.Blazor.Pages.Inventory.ReasonCode
         protected List<Volo.Abp.BlazoriseUI.BreadcrumbItem> BreadcrumbItems = new List<Volo.Abp.BlazoriseUI.BreadcrumbItem>();
         protected PageToolbar Toolbar { get; } = new PageToolbar();
         private IReadOnlyList<ReasonCodeDto> ReasonCodeList { get; set; }
+
+
         private bool CanCreateReasonCode { get; set; }
         private bool CanEditReasonCode { get; set; }
         private bool CanDeleteReasonCode { get; set; }
-        private readonly IUiMessageService _uiMessageService;
-        private ReasonCodeUpdateDto EditingReasonCode { get; set; }
-        private Validations EditingReasonCodeValidations { get; set; } = new();
-        private Guid EditingReasonCodeId { get; set; }
         private Modal CreateReasonCodeModal { get; set; } = new();
         private Modal EditReasonCodeModal { get; set; } = new();
 
 
+
+        private readonly IUiMessageService _uiMessageService;
+        private ReasonCodeUpdateDto EditingReasonCode { get; set; }
+        private Validations EditingReasonCodeValidations { get; set; } = new();
+        private Guid EditingReasonCodeId { get; set; }
+
+        //==================================Initialize Section===================================
 
         public ReasonCodes(IUiMessageService uiMessageService)
         {
@@ -107,6 +112,8 @@ namespace HQSOFT.eBiz.Inventory.Blazor.Pages.Inventory.ReasonCode
 
             return ValueTask.CompletedTask;
         }
+
+        //======================CRUD & Load Main Data Source Section=============================
 
         private async Task CreateReasonCodeAsync()
         {
